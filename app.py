@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from textblob import TextBlob
 import random
 import nltk
+import os
 
 # Descargar recursos de NLTK
 nltk.download('brown')
@@ -54,24 +55,5 @@ def generar_respuesta_natural(contexto, sentimiento):
     preludio = random.choice(preludios.get(sentimiento, ["Let's explore that."]))
     rima = random.choice(rimas.get(sentimiento, ["Sorry, no rhyme found."]))
     if contexto:
-        return f"{preludio} I noticed you're talking about {contexto}. {rima}"
-    else:
-        return f"{preludio} {rima}"
-
-# Endpoint para manejar solicitudes al bot
-@app.route("/chatbot", methods=["POST"])
-def chatbot():
-    data = request.json
-    user_message = data.get("message", "")
-    if not user_message:
-        return jsonify({"error": "Message is required"}), 400
-
-    # Procesar el mensaje
-    sentimiento = analizar_sentimiento(user_message)
-    contexto = extraer_contexto(user_message)
-    respuesta = generar_respuesta_natural(contexto, sentimiento)
-
-    return jsonify({"response": respuesta})
-
-if __name__ == "__main__":
-    app.run(debug=True)
+        return f"{preludio} I noticed you're talking about {co
+     
